@@ -38,7 +38,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
-    "moment": "^2.29.1",
+    "luxon": "^2.3.1",
     "pm2": "^5.2.0",
     "rate-limiter-flexible": "^2.3.6",
     "rimraf": "^3.0.2",
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
+    "@types/luxon": "^2.3.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^7.0.4",
@@ -58,6 +59,6 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache",
-    "*.{js,css,md}": "prettier --check"
+    "*.{js,md}": "prettier --check"
   }
 }

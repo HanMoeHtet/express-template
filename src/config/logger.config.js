@@ -1,6 +1,6 @@
 import { removeAnsiEscapeCodes } from '@src/utils/index.js';
 import chalk from 'chalk';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import path from 'path';
 import { createStream } from 'rotating-file-stream';
 import { storagePath } from './paths.config';
@@ -135,7 +135,7 @@ export const fileLogger = new FileLogger(
         time = new Date();
       }
 
-      return `${moment(time).format('YYYY-MM-DD')}${
+      return `${DateTime.fromJSDate(time).toSQLDate()}${
         index != null ? `-(${index})` : ''
       }.log`;
     },
