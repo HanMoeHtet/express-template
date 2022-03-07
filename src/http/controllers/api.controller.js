@@ -8,6 +8,6 @@ export const successController = (req, res) => {
   });
 };
 
-export const failController = (req, res) => {
+export const failController = () => {
   throw new HttpException(HttpStatus.BAD_REQUEST);
 };

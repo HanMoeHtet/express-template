@@ -2,7 +2,7 @@ import { removeAnsiEscapeCodes } from '@src/utils/index.js';
 import chalk from 'chalk';
 import moment from 'moment';
 import path from 'path';
-import { createStream, RotatingFileStream } from 'rotating-file-stream';
+import { createStream } from 'rotating-file-stream';
 import { storagePath } from './paths.config';
 
 export const LOG_LEVELS = {
@@ -12,27 +12,8 @@ export const LOG_LEVELS = {
   INFO: 'INFO',
   DEBUG: 'DEBUG',
 };
-
-class AbstractLogger {
-  prependDateTime(message) {}
-
-  critical(message) {}
-
-  error(message) {}
-
-  warn(message) {}
-
-  info(message) {}
-
-  debug(message) {}
-}
-
-export class FileLogger extends AbstractLogger {
-  /**
-   * @param {RotatingFileStream} logFileStream
-   */
+export class FileLogger {
   constructor(logFileStream) {
-    super();
     this.logFileStream = logFileStream;
   }
 
@@ -88,7 +69,7 @@ export class FileLogger extends AbstractLogger {
   }
 }
 
-export class ConsoleLogger extends AbstractLogger {
+export class ConsoleLogger {
   /**
    * @param {string} message
    * @returns {string} message with datetime prepended

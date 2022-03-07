@@ -18,7 +18,7 @@ fs.copyFileSync(envExamplePath, path.join(__dirname, '../.env'));
 fs.copyFileSync(envExamplePath, path.join(__dirname, '../.env.production'));
 fs.copyFileSync(envExamplePath, path.join(__dirname, '../.env.test'));
 
-console.log(`Created .env files.`);
+console.log('Created .env files.');
 
 // Change app name in package.json
 packageJson.name = APP_NAME;
@@ -31,7 +31,7 @@ fs.writeFileSync(
   JSON.stringify(packageJson, null, 2)
 );
 
-console.log(`Changed app name in package.json.`);
+console.log('Changed app name in package.json.');
 
 // Change app name in public/index.html
 let publicHtmlContent = fs
@@ -43,4 +43,4 @@ fs.writeFileSync(
   publicHtmlContent
 );
 
-console.log(`Changed app name in public/index.html.`);
+console.log('Changed app name in public/index.html.');
