@@ -6,8 +6,6 @@ Yet another Express template with security, performance and best practices in mi
 - [Technologies](#technologies)
 - [Set Up](#set-up)
 - [Folder Structure](#folder-structure)
-- [Guide](#guide)
-
 ## Technologies
 
 - [Node.js](https://nodejs.org)
