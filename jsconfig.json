@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /**
+     * Project paths
+     */
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+
+    /**
+     * Type checking
+     */
+    "checkJs": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "useUnknownInCatchVariables": true,
+
+    "moduleResolution": "Node"
+  },
+
+  "typeAcquisition": {
+    "include": ["jest"]
+  },
+
+  "include": ["./src/**/*.js", "./test/**/*.js"]
+}

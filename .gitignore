@@ -1,0 +1,14 @@
+# Build
+build
+
+# Dependencies
+/node_modules
+
+# Environment variables
+.env*
+!.env.example
+
+# Editor settings
+.vscode
+
+TODOS.MD

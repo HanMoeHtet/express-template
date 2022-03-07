@@ -1,0 +1,49 @@
+{
+  "name": "express-template",
+  "version": "0.0.1",
+  "description": "Template for express.js",
+  "author": "Han Moe Htet",
+  "license": "MIT",
+  "private": "true",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=13.0.0"
+  },
+  "scripts": {
+    "start": "nodemon --watch src --exec babel-node src/index.js",
+    "test": "cross-env NODE_ENV=test jest",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
+    "build": "rimraf build && babel src -d build",
+    "serve": "cross-env NODE_ENV=production node build/index.js",
+    "pm2": "pm2 start npm --name express-template -- run serve",
+    "link": "node ./scripts/link.js"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "chalk": "4.1.2",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "moment": "^2.29.1",
+    "pm2": "^5.2.0",
+    "rate-limiter-flexible": "^2.3.6",
+    "rimraf": "^3.0.2",
+    "rotating-file-stream": "^3.0.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
+  }
+}
