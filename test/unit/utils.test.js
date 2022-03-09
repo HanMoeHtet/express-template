@@ -1,8 +1,7 @@
-import chalk from 'chalk';
 import {
-  removeTrailingForwardSlash,
   getValueFromEnvOrFail,
   removeAnsiEscapeCodes,
+  removeTrailingForwardSlash,
 } from '../../src/utils';
 
 test('removeTrailingForwardSlash', () => {
@@ -28,9 +27,9 @@ test('getValueFromEnvOrFail', () => {
 });
 
 test('removeAnsiEscapeCodes', () => {
-  expect(removeAnsiEscapeCodes(chalk.green('hello'))).toEqual('hello');
+  expect(removeAnsiEscapeCodes('\x1B[32mhello\x1B[39m')).toEqual('hello');
 
-  expect(removeAnsiEscapeCodes(chalk.green('hello'))).not.toEqual(
-    chalk.green('hello')
+  expect(removeAnsiEscapeCodes('\x1B[32mhello\x1B[39m')).not.toEqual(
+    '\x1B[32mhello\x1B[39m'
   );
 });

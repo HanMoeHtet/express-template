@@ -1,6 +1,7 @@
 import { app } from '@src/config/app.config';
 import { CLIENT_ORIGIN } from '@src/config/env.config';
 import { REQUESTS_PER_SECOND_PER_IP } from '@src/config/rate-limiter.config';
+import { HttpStatus } from '@src/http/http-status';
 import supertest from 'supertest';
 
 const request = supertest(app);
@@ -27,17 +28,19 @@ describe('Test rate limiter', () => {
   });
 
   test(`Can handle ${REQUESTS_PER_SECOND_PER_IP} requests per second`, async () => {
+    let res;
     for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP; i++) {
-      const res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
-      expect(res.status).toBe(200);
+      res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
     }
+    expect(res?.status).toBe(HttpStatus.OK);
   });
 
-  test('Cannot handle 11 requests per second', async () => {
+  test(`Cannot handle ${REQUESTS_PER_SECOND_PER_IP} requests per second`, async () => {
+    let res;
     for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP + 1; i++) {
-      const res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
-      expect(res.status).toBe(429);
+      res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
     }
+    expect(res?.status).toBe(HttpStatus.TOO_MANY_REQUESTS);
   });
 
   afterEach(() => {
