@@ -19,3 +19,8 @@ export const srcPath = path.join(rootPath, 'src');
  * Path to storage directory
  */
 export const storagePath = path.join(rootPath, 'storage');
+
+/**
+ * Path to resources directory
+ */
+export const resourcesPath = path.join(srcPath, 'resources');

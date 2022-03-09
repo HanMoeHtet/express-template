@@ -1,8 +1,11 @@
 // import cookieParser from 'cookie-parser';
 import { consoleLogger } from '@src/config/logger.config';
 import router from '@src/config/router.config';
-import { HttpException } from '@src/http/exceptions/HttpException';
 import { handler as errorHandler } from '@src/http/exceptions/handler';
+import { HttpException } from '@src/http/exceptions/HttpException';
+import { HttpStatus } from '@src/http/http-status.js';
+import { initExecutionContext } from '@src/http/middlewares/execution-context.middleware.js';
+import { i18nextMiddleware } from '@src/http/middlewares/i18next.middleware.js';
 import { rateLimitByIp } from '@src/http/middlewares/rate-limitter.middleware';
 import { requestIdentifier } from '@src/http/middlewares/request-identifier.middleware.js';
 import { requestLogger } from '@src/http/middlewares/request-logger.middleware';
@@ -14,7 +17,6 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import { CLIENT_ORIGIN, PORT } from './env.config.js';
 import { publicPath } from './paths.config.js';
-import { initExecutionContext } from '@src/http/middlewares/execution-context.middleware.js';
 
 // Instantiate express app
 const app = express();
@@ -45,7 +47,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 
 // Global middlewares
-app.use([rateLimitByIp, requestIdentifier, requestLogger]);
+app.use([rateLimitByIp, requestIdentifier, requestLogger, i18nextMiddleware]);
 
 // Serve static files
 app.use(express.static(publicPath));
@@ -55,7 +57,7 @@ app.use(router);
 
 // Catch-all route to handle 404 or serve PWA apps
 app.use('*', () => {
-  throw new HttpException(404, 'Not found.');
+  throw new HttpException(HttpStatus.NOT_FOUND);
 });
 
 // Custon error handler
