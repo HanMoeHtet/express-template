@@ -14,9 +14,13 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import { CLIENT_ORIGIN, PORT } from './env.config.js';
 import { publicPath } from './paths.config.js';
+import { initExecutionContext } from '@src/http/middlewares/execution-context.middleware.js';
 
 // Instantiate express app
 const app = express();
+
+// Set execution context for each request
+app.use(initExecutionContext);
 
 // Use gzip compression
 app.use(compression());
