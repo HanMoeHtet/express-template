@@ -14,6 +14,7 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import { CLIENT_ORIGIN, PORT } from './env.config.js';
 import { publicPath } from './paths.config.js';
+import { i18nextMiddleware } from '@src/http/middlewares/i18next.middleware.js';
 
 // Instantiate express app
 const app = express();
@@ -41,7 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 
 // Global middlewares
-app.use([rateLimitByIp, requestIdentifier, requestLogger]);
+app.use([rateLimitByIp, requestIdentifier, requestLogger, i18nextMiddleware]);
 
 // Serve static files
 app.use(express.static(publicPath));

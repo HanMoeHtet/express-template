@@ -32,3 +32,5 @@ export const ENV = (() => {
 
   return env;
 })();
+
+export const LOCALE = process.env.LOCALE || 'en_US';
