@@ -59,7 +59,7 @@ i18next
   .use(i18nextHttpMiddleware.LanguageDetector)
   .use(i18nextFsBackend)
   .init({
-    preload: ['en', 'mm'],
+    preload: ['en', 'my'],
     fallbackLng: 'en',
     ns: ['common'],
     defaultNS: 'common',

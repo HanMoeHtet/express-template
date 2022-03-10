@@ -20,10 +20,10 @@ test('Get /success should return success', async () => {
   });
 });
 
-test('Get /success with language mm should return success', async () => {
+test('Get /success with language my should return success', async () => {
   const res = await request
     .get('/api/v1/success')
-    .set('Accept-Language', 'mm_MM');
+    .set('Accept-Language', 'my_MM');
 
   expect(res.statusCode).toEqual(HttpStatus.OK);
   expect(res.headers['content-type'].includes('application/json')).toBe(true);
