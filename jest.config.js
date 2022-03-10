@@ -10,7 +10,7 @@ module.exports = {
 };
 
 // A hack for jest environment not picking up TZ.
-// See https://github.com/bmaupin/jest-timezone-bug.
+// See https://github.com/bmaupin/jest-timezone-bug
 // Since we already have TZ set in the environment, we can just re-assign it.
 const TZ = process.env.TZ;
 process.env.TZ = TZ;

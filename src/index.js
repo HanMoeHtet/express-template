@@ -1,5 +1,6 @@
 /**
- * Import orders matter
+ * Entry point for the application.
+ * Order of the imports matter
  */
 
 import { init as bootstrap } from './bootstrap';
