@@ -8,10 +8,10 @@ const request = supertest(app);
 
 describe('Test CORS', () => {
   test('Unknown origin should have CORS issue', async () => {
-    const SUSPIOUS_ORIGIN = 'http://suspious.origin';
-    const res = await request.get('/').set('Origin', SUSPIOUS_ORIGIN);
+    const SUSPICIOUS_ORIGIN = 'http://suspious.origin';
+    const res = await request.get('/').set('Origin', SUSPICIOUS_ORIGIN);
     expect(res.headers['access-control-allow-origin']).not.toBe(
-      SUSPIOUS_ORIGIN
+      SUSPICIOUS_ORIGIN
     );
   });
 
@@ -35,7 +35,9 @@ describe('Test rate limiter', () => {
     expect(res?.status).toBe(HttpStatus.OK);
   });
 
-  test(`Cannot handle ${REQUESTS_PER_SECOND_PER_IP} requests per second`, async () => {
+  test(`Cannot handle ${
+    REQUESTS_PER_SECOND_PER_IP + 1
+  } requests per second`, async () => {
     let res;
     for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP + 1; i++) {
       res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
