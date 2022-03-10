@@ -57,13 +57,12 @@ Yet another Express template with security, performance and best practices in mi
   - ### config
     contains all the configuration files
   - ### http
-    contains all the http controllers, exceptions and middlewares
+    contains all the http routes, controllers, exceptions and middlewares
   - ### resources
     contains all the resources such as views and langauges
-  - ### routes
-    contains all the routes
   - ### services
     contains all the business logic code, all services must be able to be used by HTTP, WS and RPC.
+    contains all the http routes, controllers, exceptions and middlewares
   - ### utils
     contains all the utility functions
   - ### bootstrap.js
