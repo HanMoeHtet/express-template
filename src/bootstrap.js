@@ -13,6 +13,8 @@ config({
 
 export const init = async () => {
   const { consoleLogger } = await import('@src/config/logger.config');
+  const { ENV } = await import('@src/config/env.config');
 
-  consoleLogger.info(`Loaded environment varaiables from path: ${envPath}`);
+  ENV === 'development' &&
+    consoleLogger.info(`Loaded environment variables from path: ${envPath}`);
 };

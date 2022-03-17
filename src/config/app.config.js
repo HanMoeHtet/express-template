@@ -9,13 +9,13 @@ import { i18nextMiddleware } from '@src/http/middlewares/i18next.middleware.js';
 import { rateLimitByIp } from '@src/http/middlewares/rate-limitter.middleware';
 import { requestIdentifier } from '@src/http/middlewares/request-identifier.middleware.js';
 import { requestLogger } from '@src/http/middlewares/request-logger.middleware';
-import { removeTrailingForwardSlash } from '@src/utils/index';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import { createServer } from 'http';
-import { CLIENT_ORIGIN, PORT } from './env.config.js';
+import { corsOptions } from './cors.config.js';
+import { ENV, PORT } from './env.config.js';
 import { publicPath } from './paths.config.js';
 
 // Instantiate express app
@@ -24,6 +24,7 @@ const app = express();
 // Set execution context for each request
 app.use(initExecutionContext);
 
+// @ts-ignore
 // Use gzip compression
 app.use(compression());
 
@@ -31,11 +32,7 @@ app.use(compression());
 app.use(helmet());
 
 // Configure CORS settings
-app.use(
-  cors({
-    origin: [CLIENT_ORIGIN].map(removeTrailingForwardSlash),
-  })
-);
+app.use(cors(corsOptions));
 
 // Parse JSON body
 app.use(express.json());
@@ -60,7 +57,7 @@ app.use('*', () => {
   throw new HttpException(HttpStatus.NOT_FOUND);
 });
 
-// Custon error handler
+// Custom error handler
 app.use(errorHandler);
 
 // Set port for the app
@@ -104,12 +101,16 @@ server.on('listening', () => {
   const bind =
     typeof address === 'string' ? 'pipe ' + address : 'port ' + address.port;
 
-  consoleLogger.info('Listening on ' + bind);
+  ENV === 'development' && consoleLogger.info('Listening on ' + bind);
 });
 
-export const init = async () => {
+export const init = () => {
   // Listen on port, on all network interfaces.
-  server.listen(PORT);
+  return new Promise((resolve) => {
+    server.listen(PORT, () => {
+      resolve(null);
+    });
+  });
 };
 
 export { app, server };

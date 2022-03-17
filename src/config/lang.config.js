@@ -9,6 +9,7 @@ import { resourcesPath } from './paths.config';
 import {
   ExecutionContext,
   HttpExecutionContext,
+  WsExecutionContext,
 } from './execution-context.config';
 
 if (ENV === 'development') {
@@ -77,11 +78,15 @@ export const t = (...params) => {
     return ctx.req.t(...params);
   }
 
+  if (ctx instanceof WsExecutionContext) {
+    return ctx.socket.data.t(...params);
+  }
+
   // @ts-ignore
   return i18next.cloneInstance().t(...params);
 };
 
-// resolve after i18next has initialized
+// resolve after i18next has been initialized
 export const init = () => {
   return new Promise((resolve) => {
     i18next.on('initialized', () => {

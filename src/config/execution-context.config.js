@@ -20,3 +20,12 @@ export class HttpExecutionContext extends ExecutionContext {
     this.next = next;
   }
 }
+
+export class WsExecutionContext extends ExecutionContext {
+  constructor(socket, event, next, data = {}) {
+    super(data);
+    this.socket = socket;
+    this.event = event;
+    this.next = next;
+  }
+}

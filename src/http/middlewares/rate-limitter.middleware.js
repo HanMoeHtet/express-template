@@ -3,12 +3,14 @@ import { HttpException } from '@src/http/exceptions/HttpException';
 import { HttpStatus } from '../http-status';
 import { asyncHandler } from './async-handler.middleware';
 
-export const rateLimitByIp = asyncHandler(async (req, res, next) => {
-  try {
-    await rateLimiterByIp.consume(req.ip);
-  } catch (e) {
-    throw new HttpException(HttpStatus.TOO_MANY_REQUESTS);
-  }
+export const rateLimitByIp = asyncHandler(
+  async (/** @type {import('express').Request} */ req, res, next) => {
+    try {
+      await rateLimiterByIp.consume(req.ip);
+    } catch (e) {
+      throw new HttpException(HttpStatus.TOO_MANY_REQUESTS);
+    }
 
-  next();
-});
+    next();
+  }
+);
