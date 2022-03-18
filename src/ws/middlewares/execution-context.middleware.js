@@ -3,11 +3,8 @@ import {
   WsExecutionContext,
 } from '@src/config/execution-context.config';
 
-export const initExecutionContext = (socket, event, next) => {
-  executionContextStorage.run(
-    new WsExecutionContext(socket, event, next),
-    () => {
-      next();
-    }
-  );
+export const initExecutionContext = (socket, next) => {
+  executionContextStorage.run(new WsExecutionContext(socket, next), () => {
+    next();
+  });
 };

@@ -10,14 +10,11 @@ export const io = new Server(httpServer, {
   cors: corsOptions,
 });
 
+io.use(i18nextMiddleware);
+
 io.on('connection', async (socket) => {
   socket.use((event, next) => {
-    socket.handshake.query;
-    initExecutionContext(socket, event, next);
-  });
-
-  socket.use((_event, next) => {
-    i18nextMiddleware(socket, next);
+    initExecutionContext(socket, next);
   });
 
   socket.on('success', () => {

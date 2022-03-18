@@ -22,10 +22,9 @@ export class HttpExecutionContext extends ExecutionContext {
 }
 
 export class WsExecutionContext extends ExecutionContext {
-  constructor(socket, event, next, data = {}) {
+  constructor(socket, next, data = {}) {
     super(data);
     this.socket = socket;
-    this.event = event;
     this.next = next;
   }
 }
