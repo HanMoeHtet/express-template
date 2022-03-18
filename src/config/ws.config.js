@@ -1,5 +1,6 @@
 import { server as httpServer } from '@src/config/app.config';
-import * as apiService from '@src/services/api.service';
+import { handler } from '@src/ws/exceptions/handler';
+import { registerSuccessListeners } from '@src/ws/listeners/successListeners';
 import { initExecutionContext } from '@src/ws/middlewares/execution-context.middleware';
 import { i18nextMiddleware } from '@src/ws/middlewares/i18next.middleware';
 import { Server } from 'socket.io';
@@ -17,7 +18,9 @@ io.on('connection', async (socket) => {
     initExecutionContext(socket, next);
   });
 
-  socket.on('success', () => {
-    socket.emit('message', apiService.success());
+  registerSuccessListeners(socket);
+
+  socket.on('error', (err) => {
+    handler(err, socket);
   });
 });
