@@ -1,6 +1,6 @@
 import { ENV } from '@src/config/env.config.js';
 import { HttpStatus } from '../http-status.js';
-import { HttpException } from './HttpException.js';
+import { HttpException } from './http.exception.js';
 
 export const handler = (err, req, res, next) => {
   /*

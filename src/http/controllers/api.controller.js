@@ -1,5 +1,5 @@
 import * as apiService from '@src/services/api.service';
-import { HttpException } from '../exceptions/HttpException';
+import { HttpException } from '../exceptions/http.exception';
 import { HttpStatus } from '../http-status';
 
 export const successController = (req, res) => {

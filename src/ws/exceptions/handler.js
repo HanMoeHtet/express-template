@@ -1,5 +1,5 @@
 import { ENV } from '@src/config/env.config';
-import { WsException } from './WsException';
+import { WsException } from './ws.exception';
 
 export const handler = (
   /** @type {Error} */ err,

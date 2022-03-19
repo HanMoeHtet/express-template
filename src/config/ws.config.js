@@ -1,6 +1,6 @@
 import { server as httpServer } from '@src/config/app.config';
 import { handler } from '@src/ws/exceptions/handler';
-import { registerSuccessListeners } from '@src/ws/listeners/successListeners';
+import { registerSuccessListeners } from '@src/ws/listeners/success.listener';
 import { initExecutionContext } from '@src/ws/middlewares/execution-context.middleware';
 import { i18nextMiddleware } from '@src/ws/middlewares/i18next.middleware';
 import { Server } from 'socket.io';

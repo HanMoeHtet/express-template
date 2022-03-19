@@ -2,7 +2,7 @@
 import { consoleLogger } from '@src/config/logger.config';
 import router from '@src/config/router.config';
 import { handler as errorHandler } from '@src/http/exceptions/handler';
-import { HttpException } from '@src/http/exceptions/HttpException';
+import { HttpException } from '@src/http/exceptions/http.exception';
 import { HttpStatus } from '@src/http/http-status.js';
 import { initExecutionContext } from '@src/http/middlewares/execution-context.middleware.js';
 import { i18nextMiddleware } from '@src/http/middlewares/i18next.middleware.js';
