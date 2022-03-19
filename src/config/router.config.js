@@ -1,8 +1,11 @@
-import { apiRouter, API_BASE_URI } from '@src/http/routes/api.route';
+import {
+  successRouter,
+  SUCCESS_BASE_URI,
+} from '@src/http/routes/success.route';
 import { Router } from 'express';
 
 const router = Router();
 
-router.use(API_BASE_URI, apiRouter);
+router.use(SUCCESS_BASE_URI, successRouter);
 
 export default router;
