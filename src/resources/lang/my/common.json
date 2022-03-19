@@ -1,3 +1,6 @@
 {
-  "successMessage": "အောင်မြင်ပါသည်။"
+  "successMessage": "အောင်မြင်ပါသည်။",
+  "exception": {
+    "user-not-found": "User id: {{userId}} ဖြင့် user မရှိပါ။"
+  }
 }

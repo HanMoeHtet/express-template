@@ -32,3 +32,9 @@ export const ENV = (() => {
 
   return env;
 })();
+
+export const DATABASE_HOST = getValueFromEnvOrFail('DATABASE_HOST');
+
+export const DATABASE_USERNAME = getValueFromEnvOrFail('DATABASE_USERNAME');
+
+export const DATABASE_PASSWORD = getValueFromEnvOrFail('DATABASE_PASSWORD');

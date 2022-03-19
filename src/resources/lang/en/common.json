@@ -1,3 +1,6 @@
 {
-  "successMessage": "Success!"
+  "successMessage": "Success!",
+  "exception": {
+    "user-not-found": "A user with user id: {{userId}} does not exist."
+  }
 }
