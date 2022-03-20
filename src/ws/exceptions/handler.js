@@ -13,7 +13,7 @@ export const handler = (
     } else {
       socket.emit('message', {
         message: err.message,
-        error: isProduction ? undefined : err.stack,
+        stack: isProduction ? undefined : err.stack,
       });
     }
 

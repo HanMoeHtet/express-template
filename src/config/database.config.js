@@ -1,4 +1,4 @@
-import { UserSchema } from '@src/database/entities/user.entity';
+import { UserSchema } from '@src/models/user/user.entity';
 import { DataSource } from 'typeorm';
 import {
   DATABASE_HOST,

@@ -2,7 +2,7 @@ import { EntitySchema } from 'typeorm';
 
 export class User {
   /**
-   * @type {number | undefined}
+   * @type {string | undefined}
    */
   id;
 
