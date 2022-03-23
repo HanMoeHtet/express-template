@@ -1,0 +1,7 @@
+import { User } from '@src/models/user/user.entity';
+
+export const seedOptions = {
+  [User.name]: {
+    size: 30,
+  },
+};

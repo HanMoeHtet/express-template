@@ -1,16 +1,12 @@
 import chalk from 'chalk';
 import i18next from 'i18next';
-import { ENV } from './env.config';
-import { consoleLogger } from './logger.config';
-import i18nextHttpMiddleware from 'i18next-http-middleware';
 import i18nextFsBackend from 'i18next-fs-backend';
+import i18nextHttpMiddleware from 'i18next-http-middleware';
 import path from 'path';
+import { ENV } from './env.config';
+import { ExecutionContext } from './execution-context.config';
+import { consoleLogger } from './logger.config';
 import { resourcesPath } from './paths.config';
-import {
-  ExecutionContext,
-  HttpExecutionContext,
-  WsExecutionContext,
-} from './execution-context.config';
 
 if (ENV === 'development') {
   i18next.on('added', (lng, ns) => {
@@ -57,14 +53,11 @@ if (ENV === 'development') {
 }
 
 export const t = (...params) => {
-  const ctx = ExecutionContext.getCurrent();
+  const t = ExecutionContext.getCurrent()?.getTranslator();
 
-  if (ctx instanceof HttpExecutionContext) {
-    return ctx.req.t(...params);
-  }
-
-  if (ctx instanceof WsExecutionContext) {
-    return ctx.socket.data.t(...params);
+  if (t) {
+    // @ts-ignore
+    return t(...params);
   }
 
   // @ts-ignore

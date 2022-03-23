@@ -1,7 +1,6 @@
-import '@src/bootstrap';
 import { consoleLogger } from '@src/config/logger.config';
 import { rootPath } from '@src/config/paths.config';
-import { getRegisteredRoutes } from '@src/utils/routes';
+import { getRegisteredRoutes } from '@src/utils/routes.util';
 import fs from 'fs';
 import path from 'path';
 

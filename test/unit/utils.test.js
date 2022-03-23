@@ -1,8 +1,8 @@
+import { getValueFromEnvOrFail } from '@src/utils/env.util';
 import {
-  getValueFromEnvOrFail,
   removeAnsiEscapeCodes,
   removeTrailingForwardSlash,
-} from '../../src/utils';
+} from '../../src/utils/string.util';
 
 test('removeTrailingForwardSlash', () => {
   expect(removeTrailingForwardSlash('/')).toBe('');

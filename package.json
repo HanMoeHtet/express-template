@@ -22,9 +22,7 @@
     "prettier:check": "prettier --check ./",
     "prettier:fix": "prettier --write ./",
     "prepare": "husky install",
-    "cli": "babel-node src/cli/index.js",
-    "seed:config": "node ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "node ./node_modules/typeorm-seeding/dist/cli.js seed"
+    "cli": "babel-node src/cli/index.js"
   },
   "dependencies": {
     "@babel/cli": "^7.17.6",
@@ -54,7 +52,6 @@
     "rotating-file-stream": "^3.0.3",
     "socket.io": "^4.4.1",
     "typeorm": "^0.3.0",
-    "typeorm-seeding": "^1.6.1",
     "utf-8-validate": "^5.0.9",
     "uuid": "^8.3.2"
   },

@@ -1,4 +1,4 @@
-import { removeAnsiEscapeCodes } from '@src/utils/index.js';
+import { removeAnsiEscapeCodes } from '@src/utils/string.util';
 import chalk from 'chalk';
 import { DateTime } from 'luxon';
 import path from 'path';

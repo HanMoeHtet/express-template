@@ -19,3 +19,5 @@ coverage
 
 # App Outputs
 routes.json
+
+src/config/seed.config.js

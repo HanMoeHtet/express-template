@@ -1,4 +1,4 @@
-import { removeTrailingForwardSlash } from '@src/utils';
+import { removeTrailingForwardSlash } from '@src/utils/string.util';
 import { CLIENT_ORIGIN } from './env.config';
 
 /**

@@ -40,5 +40,7 @@ export const i18nextMiddleware = (socket, next) => {
 
   // load resources
   if (!socket.data.lng) return next();
-  i18next.loadLanguages(socket.data.lng, () => next());
+  i18next.loadLanguages(socket.data.lng, () => {
+    next();
+  });
 };

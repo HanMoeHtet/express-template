@@ -1,7 +1,5 @@
-import {
-  getValueFromEnvOrFail,
-  removeTrailingForwardSlash,
-} from '@src/utils/index.js';
+import { getValueFromEnvOrFail } from '@src/utils/env.util';
+import { removeTrailingForwardSlash } from '@src/utils/string.util';
 
 export const CLIENT_ORIGIN = removeTrailingForwardSlash(
   getValueFromEnvOrFail('CLIENT_ORIGIN')
@@ -38,3 +36,5 @@ export const DATABASE_HOST = getValueFromEnvOrFail('DATABASE_HOST');
 export const DATABASE_USERNAME = getValueFromEnvOrFail('DATABASE_USERNAME');
 
 export const DATABASE_PASSWORD = getValueFromEnvOrFail('DATABASE_PASSWORD');
+
+export const DATABASE_NAME = getValueFromEnvOrFail('DATABASE_NAME');

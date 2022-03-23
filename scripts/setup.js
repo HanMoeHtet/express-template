@@ -44,3 +44,13 @@ fs.writeFileSync(
 );
 
 console.log('Changed app name in public/index.html.');
+
+// Create seed.config.js file
+const seedConfigJsFilePath = path.join(
+  __dirname,
+  '../src/config/seed.config.js.example'
+);
+fs.copyFileSync(
+  seedConfigJsFilePath,
+  path.join(__dirname, '../src/config/seed.config.js')
+);

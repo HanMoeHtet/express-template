@@ -7,8 +7,25 @@ export class ExecutionContext {
     this.data = data;
   }
 
+  /**
+   * @returns {ExecutionContext | undefined}
+   */
   static getCurrent() {
     return executionContextStorage.getStore();
+  }
+
+  /**
+   * @returns {import('i18next').TFunction | undefined}
+   */
+  getTranslator() {
+    return;
+  }
+
+  /**
+   * @returns {import('typeorm').EntityManager | undefined}
+   */
+  getEntityManager() {
+    return;
   }
 }
 
@@ -19,6 +36,14 @@ export class HttpExecutionContext extends ExecutionContext {
     this.res = res;
     this.next = next;
   }
+
+  getTranslator() {
+    return this.req.t;
+  }
+
+  getEntityManager() {
+    return this.data.entityManager;
+  }
 }
 
 export class WsExecutionContext extends ExecutionContext {
@@ -26,5 +51,27 @@ export class WsExecutionContext extends ExecutionContext {
     super(data);
     this.socket = socket;
     this.next = next;
+  }
+
+  getTranslator() {
+    return this.socket.data.t;
+  }
+
+  getEntityManager() {
+    return this.data.entityManager;
+  }
+}
+
+export class CliExecutionContext extends ExecutionContext {
+  constructor(data = {}) {
+    super(data);
+  }
+
+  getTranslator() {
+    return this.data.t;
+  }
+
+  getEntityManager() {
+    return this.data.entityManager;
   }
 }
