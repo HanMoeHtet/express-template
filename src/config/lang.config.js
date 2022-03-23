@@ -56,21 +56,6 @@ if (ENV === 'development') {
   });
 }
 
-i18next
-  .use(i18nextHttpMiddleware.LanguageDetector)
-  .use(i18nextFsBackend)
-  .init({
-    preload: ['en', 'my'],
-    fallbackLng: 'en',
-    ns: ['common'],
-    defaultNS: 'common',
-    backend: {
-      loadPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.json'),
-      addPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.missing.json'),
-    },
-    load: 'languageOnly',
-  });
-
 export const t = (...params) => {
   const ctx = ExecutionContext.getCurrent();
 
@@ -88,6 +73,21 @@ export const t = (...params) => {
 
 // resolve after i18next has been initialized
 export const init = () => {
+  i18next
+    .use(i18nextHttpMiddleware.LanguageDetector)
+    .use(i18nextFsBackend)
+    .init({
+      preload: ['en', 'my'],
+      fallbackLng: 'en',
+      ns: ['common'],
+      defaultNS: 'common',
+      backend: {
+        loadPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.json'),
+        addPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.missing.json'),
+      },
+      load: 'languageOnly',
+    });
+
   return new Promise((resolve) => {
     i18next.on('initialized', () => {
       resolve(null);

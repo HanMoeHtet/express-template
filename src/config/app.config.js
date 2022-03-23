@@ -53,7 +53,7 @@ app.use(express.static(publicPath));
 app.use(router);
 
 // Catch-all route to handle 404 or serve PWA apps
-app.use('*', () => {
+app.use('*', function catchAll() {
   throw new HttpException(HttpStatus.NOT_FOUND);
 });
 

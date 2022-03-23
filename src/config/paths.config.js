@@ -24,3 +24,8 @@ export const storagePath = path.join(rootPath, 'storage');
  * Path to resources directory
  */
 export const resourcesPath = path.join(srcPath, 'resources');
+
+/**
+ * Path to cli directory
+ */
+export const cliPath = path.join(srcPath, 'cli');

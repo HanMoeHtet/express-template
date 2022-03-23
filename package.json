@@ -21,13 +21,17 @@
     "lint:fix": "eslint --cache --fix ./",
     "prettier:check": "prettier --check ./",
     "prettier:fix": "prettier --write ./",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cli": "babel-node src/cli/index.js",
+    "seed:config": "node ./node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "dependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "@faker-js/faker": "^6.0.0",
     "babel-plugin-module-resolver": "^4.1.0",
     "bufferutil": "^4.0.6",
     "chalk": "4.1.2",
@@ -50,6 +54,7 @@
     "rotating-file-stream": "^3.0.3",
     "socket.io": "^4.4.1",
     "typeorm": "^0.3.0",
+    "typeorm-seeding": "^1.6.1",
     "utf-8-validate": "^5.0.9",
     "uuid": "^8.3.2"
   },

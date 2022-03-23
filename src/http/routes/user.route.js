@@ -15,7 +15,7 @@ export const userRouter = Router();
 userRouter.get('/', UserController.getAllUsers);
 
 userRouter.get(
-  '/:userId',
+  '/:userId(\\d+)',
   validateRequest(getUserRequestSchema),
   UserController.getUser
 );

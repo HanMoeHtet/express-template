@@ -1,8 +1,13 @@
 import { app } from '@src/config/app.config';
 import { CLIENT_ORIGIN } from '@src/config/env.config';
+import { init as initLang } from '@src/config/lang.config';
 import { REQUESTS_PER_SECOND_PER_IP } from '@src/config/rate-limiter.config';
 import { HttpStatus } from '@src/http/http-status';
 import supertest from 'supertest';
+
+beforeAll(async () => {
+  await initLang();
+});
 
 const request = supertest(app);
 
@@ -27,7 +32,7 @@ describe('Test rate limiter', () => {
     app.set('trust proxy', true);
   });
 
-  test(`Can handle ${REQUESTS_PER_SECOND_PER_IP} requests per second`, async () => {
+  test('Can handle specified requests per second', async () => {
     let res;
     for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP; i++) {
       res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
@@ -35,9 +40,7 @@ describe('Test rate limiter', () => {
     expect(res?.status).toBe(HttpStatus.OK);
   });
 
-  test(`Cannot handle ${
-    REQUESTS_PER_SECOND_PER_IP + 1
-  } requests per second`, async () => {
+  test('Cannot handle more than specified requests per second', async () => {
     let res;
     for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP + 1; i++) {
       res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');

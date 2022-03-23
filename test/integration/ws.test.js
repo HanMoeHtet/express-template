@@ -2,21 +2,26 @@ import { init as initApp, server } from '@src/config/app.config';
 import io from 'socket.io-client';
 import '@src/config/ws.config';
 import { PORT } from '@src/config/env.config';
+import { init as initLang } from '@src/config/lang.config';
 
 /** @type {import('socket.io-client').Socket} */
 let socket;
-beforeAll((done) => {
-  initApp().then(() => {
-    socket = io(`http://localhost:${PORT}`, {
-      query: {
-        lng: 'my',
-      },
+beforeAll(async () => {
+  await initLang();
+  await initApp();
+  socket = io(`http://localhost:${PORT}`, {
+    query: {
+      lng: 'my',
+    },
+  });
+
+  await new Promise((resolve, reject) => {
+    socket.on('connect', () => {
+      resolve(null);
     });
 
-    socket.on('connect', done);
-
     socket.on('connect_error', (err) => {
-      done(err.message);
+      reject(err);
     });
   });
 });

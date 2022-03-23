@@ -2,7 +2,7 @@ import * as userService from '@src/services/user.service';
 import { asyncHandler } from '../async-handler';
 import { HttpStatus } from '../http-status';
 
-export const getAllUsers = asyncHandler(async (req, res) => {
+export const getAllUsers = asyncHandler(async function getAllUsers(req, res) {
   const users = await userService.getAllUsers();
 
   res.status(HttpStatus.OK).json({
@@ -12,7 +12,7 @@ export const getAllUsers = asyncHandler(async (req, res) => {
   });
 });
 
-export const getUser = asyncHandler(async (req, res) => {
+export const getUser = asyncHandler(async function getUser(req, res) {
   const userId = req.params.userId;
   const user = await userService.getUserById(userId);
 
@@ -23,7 +23,7 @@ export const getUser = asyncHandler(async (req, res) => {
   });
 });
 
-export const createUser = asyncHandler(async (req, res) => {
+export const createUser = asyncHandler(async function createUser(req, res) {
   const createUserDto = req.body;
   const userId = await userService.createUser(createUserDto);
 
@@ -34,7 +34,7 @@ export const createUser = asyncHandler(async (req, res) => {
   });
 });
 
-export const updateUser = asyncHandler(async (req, res) => {
+export const updateUser = asyncHandler(async function updateUser(req, res) {
   const updateUserDto = {
     ...req.body,
     id: req.params.userId,
@@ -44,7 +44,7 @@ export const updateUser = asyncHandler(async (req, res) => {
   res.status(HttpStatus.OK).end();
 });
 
-export const deleteUser = asyncHandler(async (req, res) => {
+export const deleteUser = asyncHandler(async function deleteUser(req, res) {
   const userId = req.params.userId;
   await userService.deleteUser(userId);
 

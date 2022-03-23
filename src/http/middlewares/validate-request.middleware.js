@@ -3,7 +3,7 @@ import { ValidationException } from '../exceptions/validation.exception';
 export const validateRequest = (
   /** @type {import('joi').ObjectSchema}  */ schema
 ) => {
-  return (req, res, next) => {
+  const handle = (req, res, next) => {
     const { value, error } = schema.validate(
       {
         params: req.params,
@@ -27,4 +27,8 @@ export const validateRequest = (
 
     next();
   };
+
+  Object.defineProperty(handle, 'name', { value: 'validateRequest' });
+
+  return handle;
 };

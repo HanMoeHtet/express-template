@@ -16,3 +16,6 @@ TODOS.md
 .eslintcache
 yarn-error.log
 coverage
+
+# App Outputs
+routes.json
