@@ -10,4 +10,11 @@ export class ValidationException extends HttpException {
     );
     this.errors = errors;
   }
+
+  getResponse() {
+    return {
+      ...super.getResponse(),
+      errors: this.errors,
+    };
+  }
 }

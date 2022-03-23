@@ -1,4 +1,3 @@
-import { getValueFromEnvOrFail } from '@src/utils/env.util';
 import {
   removeAnsiEscapeCodes,
   removeTrailingForwardSlash,
@@ -14,16 +13,6 @@ test('removeTrailingForwardSlash', () => {
   expect(removeTrailingForwardSlash('http://example.com')).toBe(
     'http://example.com'
   );
-});
-
-test('getValueFromEnvOrFail', () => {
-  expect(getValueFromEnvOrFail('NODE_ENV')).toBe('test');
-
-  expect(getValueFromEnvOrFail('PORT')).toBe('8085');
-
-  expect(() => {
-    getValueFromEnvOrFail(new Date().toString());
-  }).toThrow(Error);
 });
 
 test('removeAnsiEscapeCodes', () => {

@@ -1,7 +1,7 @@
 import { ENV } from '@src/config/env.config.js';
 import { HttpStatus } from '../http-status.js';
 import { HttpException } from './http.exception.js';
-import { ValidationException } from './validation.exception.js';
+import { STATUS_CODES } from 'http';
 
 export const handler = (err, req, res, next) => {
   /*
@@ -16,25 +16,11 @@ export const handler = (err, req, res, next) => {
   const isProduction = ENV === 'production';
 
   if (err instanceof HttpException) {
-    if (err instanceof ValidationException) {
-      res.status(err.status).json({
-        message: err.message,
-        errors: err.errors,
-        stack: isProduction ? undefined : err.stack,
-      });
-
-      return;
-    }
-
-    res.status(err.status).json({
-      message: err.message,
-      stack: isProduction ? undefined : err.stack,
-    });
-
+    err.handle();
     return;
   }
 
-  const DEFAULT_ERROR_MESSAGE = 'An error ocurred.';
+  const DEFAULT_ERROR_MESSAGE = STATUS_CODES[HttpStatus.INTERNAL_SERVER_ERROR];
 
   res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
     message: isProduction

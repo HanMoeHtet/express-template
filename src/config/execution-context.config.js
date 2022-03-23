@@ -37,6 +37,13 @@ export class HttpExecutionContext extends ExecutionContext {
     this.next = next;
   }
 
+  /**
+   * @returns {HttpExecutionContext | undefined}
+   */
+  static getCurrent() {
+    return executionContextStorage.getStore();
+  }
+
   getTranslator() {
     return this.req.t;
   }
@@ -53,6 +60,13 @@ export class WsExecutionContext extends ExecutionContext {
     this.next = next;
   }
 
+  /**
+   * @returns {WsExecutionContext | undefined}
+   */
+  static getCurrent() {
+    return executionContextStorage.getStore();
+  }
+
   getTranslator() {
     return this.socket.data.t;
   }
@@ -65,6 +79,13 @@ export class WsExecutionContext extends ExecutionContext {
 export class CliExecutionContext extends ExecutionContext {
   constructor(data = {}) {
     super(data);
+  }
+
+  /**
+   * @returns {CliExecutionContext | undefined}
+   */
+  static getCurrent() {
+    return executionContextStorage.getStore();
   }
 
   getTranslator() {
