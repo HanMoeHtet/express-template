@@ -46,12 +46,12 @@ const dataSourceOptions = (() => {
 
 export const appDataSource = new DataSource(dataSourceOptions);
 
-export const init = async () => {
+export const initDatabase = async () => {
   await appDataSource.initialize();
   ENV === 'development' && consoleLogger.info('Initialized database.');
 };
 
-export const close = async () => {
+export const closeDatabase = async () => {
   ENV === 'test' && (await appDataSource.dropDatabase());
   await appDataSource.destroy();
 };

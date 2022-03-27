@@ -1,6 +1,6 @@
 import { app } from '@src/config/app.config';
 import { CLIENT_ORIGIN } from '@src/config/env.config';
-import { init as initLang } from '@src/config/lang.config';
+import { initLang } from '@src/config/lang.config';
 import { REQUESTS_PER_SECOND_PER_IP } from '@src/config/rate-limiter.config';
 import { HttpStatus } from '@src/http/http-status';
 import supertest from 'supertest';

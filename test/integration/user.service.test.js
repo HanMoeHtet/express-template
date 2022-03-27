@@ -1,9 +1,6 @@
-const {
-  init: initDatabase,
-  close: closeDatabase,
-} = require('@src/config/database.config');
 import faker from '@faker-js/faker';
-import { init as initLang } from '@src/config/lang.config';
+import { closeDatabase, initDatabase } from '@src/config/database.config';
+import { initLang } from '@src/config/lang.config';
 import { UserFactory } from '@src/database/factories/user.factory';
 import { UserNotFoundException } from '@src/http/exceptions/user-not-found.exception';
 import * as userService from '@src/services/user.service';

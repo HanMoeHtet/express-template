@@ -104,7 +104,7 @@ server.on('listening', () => {
   ENV === 'development' && consoleLogger.info('Listening on ' + bind);
 });
 
-export const init = () => {
+export const initApp = () => {
   // Listen on port, on all network interfaces.
   return new Promise((resolve) => {
     server.listen(PORT, () => {
@@ -113,7 +113,7 @@ export const init = () => {
   });
 };
 
-export const close = () => {
+export const closeApp = () => {
   return new Promise((resolve) => {
     server.close(() => resolve(null));
   });

@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import { app } from '@src/config/app.config';
 import { HttpStatus } from '@src/http/http-status';
 import { STATUS_CODES } from 'http';
-import { init as initLang } from '@src/config/lang.config';
+import { initLang } from '@src/config/lang.config';
 
 const request = supertest(app);
 

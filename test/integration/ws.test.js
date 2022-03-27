@@ -1,8 +1,8 @@
-import { init as initApp, close as closeApp } from '@src/config/app.config';
+import { initApp, closeApp } from '@src/config/app.config';
 import io from 'socket.io-client';
 import '@src/config/ws.config';
 import { PORT } from '@src/config/env.config';
-import { init as initLang } from '@src/config/lang.config';
+import { initLang } from '@src/config/lang.config';
 
 /** @type {import('socket.io-client').Socket} */
 let socket;

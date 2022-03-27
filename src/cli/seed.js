@@ -1,7 +1,4 @@
-import {
-  appDataSource,
-  init as initDatabase,
-} from '@src/config/database.config';
+import { appDataSource, initDatabase } from '@src/config/database.config';
 import { CliExecutionContext } from '@src/config/execution-context.config';
 import { UserSeeder } from '@src/database/seeders/user.seeder';
 

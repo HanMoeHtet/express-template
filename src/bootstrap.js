@@ -11,7 +11,7 @@ config({
   path: envPath,
 });
 
-export const init = async () => {
+export const bootstrap = async () => {
   const { consoleLogger } = await import('@src/config/logger.config');
   const { ENV } = await import('@src/config/env.config');
 

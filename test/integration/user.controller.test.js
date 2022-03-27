@@ -1,10 +1,7 @@
 import faker from '@faker-js/faker';
 import { app } from '@src/config/app.config';
-import {
-  init as initDatabase,
-  close as closeDatabase,
-} from '@src/config/database.config';
-import { init as initLang } from '@src/config/lang.config';
+import { initDatabase, closeDatabase } from '@src/config/database.config';
+import { initLang } from '@src/config/lang.config';
 import { UserFactory } from '@src/database/factories/user.factory';
 import { HttpStatus } from '@src/http/http-status';
 import { USER_BASE_URI } from '@src/http/routes/user.route';

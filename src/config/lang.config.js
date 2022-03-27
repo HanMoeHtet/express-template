@@ -65,7 +65,7 @@ export const t = (...params) => {
 };
 
 // resolve after i18next has been initialized
-export const init = () => {
+export const initLang = () => {
   i18next
     .use(i18nextHttpMiddleware.LanguageDetector)
     .use(i18nextFsBackend)

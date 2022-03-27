@@ -1,4 +1,4 @@
-import { init as initLang } from '@src/config/lang.config';
+import { initLang } from '@src/config/lang.config';
 import * as successService from '@src/services/success.service';
 
 beforeAll(async () => {
