@@ -2,12 +2,17 @@ import { UserNotFoundException } from '@src/http/exceptions/user-not-found.excep
 import { userRepository } from '@src/models/user/user.repository';
 
 export const getAllUsers = async () => {
-  return await userRepository.find();
+  return await userRepository.find({
+    cache: true,
+  });
 };
 
 export const getUserById = async (/** @type {string} */ userId) => {
-  const user = await userRepository.findOneBy({
-    id: userId,
+  const user = await userRepository.findOne({
+    where: {
+      id: userId,
+    },
+    cache: true,
   });
 
   if (!user) {

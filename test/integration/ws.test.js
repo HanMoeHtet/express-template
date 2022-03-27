@@ -1,14 +1,16 @@
-import { initApp, closeApp } from '@src/config/app.config';
-import io from 'socket.io-client';
-import '@src/config/ws.config';
+import { closeApp, initApp } from '@src/config/app.config';
 import { PORT } from '@src/config/env.config';
 import { initLang } from '@src/config/lang.config';
+import { closeWs, initWs } from '@src/config/ws.config';
+import io from 'socket.io-client';
 
 /** @type {import('socket.io-client').Socket} */
 let socket;
 beforeAll(async () => {
   await initLang();
   await initApp();
+  await initWs();
+
   socket = io(`http://localhost:${PORT}`, {
     query: {
       lng: 'my',
@@ -40,5 +42,6 @@ test('success event to server should return Success!', (done) => {
 
 afterAll(() => {
   socket.close();
+  closeWs();
   closeApp();
 });

@@ -52,9 +52,6 @@ test('Create a user', async () => {
 
   const createResponse = await request.post(`${USER_BASE_URI}/`).send(user);
 
-  console.log(createResponse.body);
-  console.log(user);
-
   expect(createResponse.statusCode).toBe(HttpStatus.CREATED);
 
   const userId = createResponse.body.data.userId;

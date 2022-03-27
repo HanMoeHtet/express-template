@@ -38,3 +38,5 @@ export const DATABASE_USERNAME = getValueFromEnvOrFail('DATABASE_USERNAME');
 export const DATABASE_PASSWORD = getValueFromEnvOrFail('DATABASE_PASSWORD');
 
 export const DATABASE_NAME = getValueFromEnvOrFail('DATABASE_NAME');
+
+export const REDIS_URL = getValueFromEnvOrFail('REDIS_URL');

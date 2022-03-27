@@ -6,6 +6,7 @@ import {
   DATABASE_PASSWORD,
   DATABASE_USERNAME,
   ENV,
+  REDIS_URL,
 } from './env.config';
 import { consoleLogger } from './logger.config';
 
@@ -28,6 +29,13 @@ const dataSourceOptions = (() => {
   if (ENV === 'production') {
     return {
       ...commonOptions,
+      cache: {
+        type: 'redis',
+        duration: 0.5 * 1000, // 30 seconds
+        options: {
+          url: REDIS_URL,
+        },
+      },
     };
   }
 
@@ -41,6 +49,13 @@ const dataSourceOptions = (() => {
   return {
     ...commonOptions,
     logging: true,
+    cache: {
+      type: 'redis',
+      duration: 0.5 * 1000, // 30 seconds
+      options: {
+        url: REDIS_URL,
+      },
+    },
   };
 })();
 
