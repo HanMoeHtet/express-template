@@ -1,7 +1,7 @@
 import { rateLimiterByIp } from '@src/config/rate-limiter.config';
 import { HttpException } from '@src/http/exceptions/http.exception';
-import { HttpStatus } from '../http-status';
 import { asyncHandler } from '../async-handler';
+import { HttpStatus } from '../http-status';
 
 export const rateLimitByIp = asyncHandler(async function rateLimitByIp(
   /** @type {import('express').Request} */ req,

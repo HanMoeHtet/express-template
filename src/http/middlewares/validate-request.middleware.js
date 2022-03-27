@@ -17,8 +17,7 @@ export const validateRequest = (
       }
     );
     if (error) {
-      next(new ValidationException(error.details, error.message));
-      return;
+      throw new ValidationException(error.details, error.message);
     }
 
     req.body = value.body;

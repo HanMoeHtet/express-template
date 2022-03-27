@@ -2,7 +2,6 @@
  * Entry point for the application.
  * Order of the imports matter
  */
-
 import { init as bootstrap } from './bootstrap';
 import { init as initDatabase } from '@src/config/database.config';
 import { init as initLang } from '@src/config/lang.config';

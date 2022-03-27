@@ -1,4 +1,3 @@
-import { ExecutionContext } from '@src/config/execution-context.config';
 import { consoleLogger } from '@src/config/logger.config';
 import { seedOptions } from '@src/config/seed.config';
 import { factories } from '../factories';
@@ -19,32 +18,18 @@ export class Seeder {
   }
 
   static async run() {
-    const entityManager = ExecutionContext.getCurrent()?.getEntityManager();
-
-    if (!entityManager) {
-      throw new Error(
-        `Entity manager for ${
-          ExecutionContext.getCurrent()?.constructor.name
-        } is not set.`
-      );
-    }
-
-    const repository = entityManager.getRepository(this.entityClass);
-
     const factoryClass = factories[this.entityClass.name];
 
     if (!factoryClass) {
       throw new Error(`No factory class for ${this.entityClass.name}`);
     }
 
-    const size = this.size();
-
-    const newEntities = [...Array(size)].map(() => factoryClass.create());
-
-    await repository.save(newEntities);
+    await factoryClass.create(this.size());
 
     consoleLogger.info(
-      `Saved ${size} record${size > 1 ? 's' : ''} of ${this.entityClass.name}.`
+      `Saved ${this.size()} record${this.size() > 1 ? 's' : ''} of ${
+        this.entityClass.name
+      }.`
     );
   }
 }

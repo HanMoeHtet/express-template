@@ -113,4 +113,10 @@ export const init = () => {
   });
 };
 
+export const close = () => {
+  return new Promise((resolve) => {
+    server.close(() => resolve(null));
+  });
+};
+
 export { app, server };

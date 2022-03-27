@@ -52,5 +52,6 @@ export const init = async () => {
 };
 
 export const close = async () => {
+  ENV === 'test' && (await appDataSource.dropDatabase());
   await appDataSource.destroy();
 };

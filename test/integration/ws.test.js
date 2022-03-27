@@ -1,4 +1,4 @@
-import { init as initApp, server } from '@src/config/app.config';
+import { init as initApp, close as closeApp } from '@src/config/app.config';
 import io from 'socket.io-client';
 import '@src/config/ws.config';
 import { PORT } from '@src/config/env.config';
@@ -40,5 +40,5 @@ test('success event to server should return Success!', (done) => {
 
 afterAll(() => {
   socket.close();
-  server.close();
+  closeApp();
 });
