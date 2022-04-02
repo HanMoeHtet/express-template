@@ -1,9 +1,11 @@
 import { app } from '@src/config/app.config';
 import { CLIENT_ORIGIN } from '@src/config/env.config';
 import { initLang } from '@src/config/lang.config';
-import { REQUESTS_PER_SECOND_PER_IP } from '@src/config/rate-limiter.config';
+import { rateLimiterByIp } from '@src/config/rate-limiter.config';
 import { HttpStatus } from '@src/http/http-status';
 import supertest from 'supertest';
+
+const MOCKED_POINTS = (rateLimiterByIp.points = 7);
 
 beforeAll(async () => {
   await initLang();
@@ -34,7 +36,7 @@ describe('Test rate limiter', () => {
 
   test('Can handle specified requests per second', async () => {
     let res;
-    for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP; i++) {
+    for (let i = 0; i < MOCKED_POINTS; i++) {
       res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
     }
     expect(res?.status).toBe(HttpStatus.OK);
@@ -42,7 +44,7 @@ describe('Test rate limiter', () => {
 
   test('Cannot handle more than specified requests per second', async () => {
     let res;
-    for (let i = 0; i < REQUESTS_PER_SECOND_PER_IP + 1; i++) {
+    for (let i = 0; i < MOCKED_POINTS + 1; i++) {
       res = await request.get('/').set('X-Forwarded-For', '10.10.10.10');
     }
     expect(res?.status).toBe(HttpStatus.TOO_MANY_REQUESTS);

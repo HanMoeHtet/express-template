@@ -21,6 +21,7 @@ UserFactory.definitions = () => {
     )
       .startOf('day')
       .toUnixInteger(),
+    avatarPath: null,
   };
 };
 

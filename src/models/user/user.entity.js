@@ -16,6 +16,11 @@ export class User {
    * @type {Date | undefined}
    */
   birthDate;
+
+  /**
+   * @type {string | undefined}
+   */
+  avatarPath;
 }
 
 export const UserSchema = new EntitySchema({
@@ -48,6 +53,11 @@ export const UserSchema = new EntitySchema({
           throw new Error(`Invalid date format for value: ${value}`);
         },
       },
+    },
+    avatarPath: {
+      type: 'varchar',
+      length: 200,
+      nullable: true,
     },
   },
 });

@@ -21,3 +21,8 @@ coverage
 routes.json
 
 src/config/seed.config.js
+
+public/storage
+test/app/public/storage
+
+dump.rdb

@@ -6,7 +6,7 @@ import path from 'path';
 import { ENV } from './env.config';
 import { ExecutionContext } from './execution-context.config';
 import { consoleLogger } from './logger.config';
-import { resourcesPath } from './paths.config';
+import { RESOURCES_PATH } from './paths.config';
 
 if (ENV === 'development') {
   i18next.on('added', (lng, ns) => {
@@ -75,8 +75,8 @@ export const initLang = () => {
       ns: ['common'],
       defaultNS: 'common',
       backend: {
-        loadPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.json'),
-        addPath: path.join(resourcesPath, 'lang/{{lng}}/{{ns}}.missing.json'),
+        loadPath: path.join(RESOURCES_PATH, 'lang/{{lng}}/{{ns}}.json'),
+        addPath: path.join(RESOURCES_PATH, 'lang/{{lng}}/{{ns}}.missing.json'),
       },
       load: 'languageOnly',
     });

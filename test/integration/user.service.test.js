@@ -10,11 +10,13 @@ import * as userService from '@src/services/user.service';
  */
 let users;
 
+const TEST_USER_SIZE = 5;
+
 beforeAll(async () => {
   await initLang();
   await initDatabase();
 
-  users = await UserFactory.create(5);
+  users = await UserFactory.create(TEST_USER_SIZE);
 });
 
 test('Should return all users', async () => {
@@ -51,6 +53,33 @@ test('Should create a user', async () => {
   }
 });
 
+test('Should update user avatar', async () => {
+  const user = faker.random.arrayElement(users);
+  const avatarPath = Math.random().toString();
+
+  await userService.updateUserAvatar({
+    id: user.id,
+    avatarPath,
+  });
+
+  const updatedUser = await userService.getUserById(user.id);
+
+  expect(updatedUser.avatarPath).toEqual(avatarPath);
+});
+
+test('Should remove user avatar', async () => {
+  const user = faker.random.arrayElement(users);
+
+  await userService.updateUserAvatar({
+    id: user.id,
+    avatarPath: undefined,
+  });
+
+  const updatedUser = await userService.getUserById(user.id);
+
+  expect(updatedUser.avatarPath).toEqual(null);
+});
+
 test('Should update a user', async () => {
   const updatedUser = {
     ...faker.random.arrayElement(users),
@@ -65,7 +94,11 @@ test('Should update a user', async () => {
 test('Should throw error if user id is not found when updating', async () => {
   const updatedUser = {
     ...UserFactory.getRaw(),
-    id: faker.datatype.number().toString(),
+    id: faker.datatype
+      .number({
+        min: TEST_USER_SIZE + 1,
+      })
+      .toString(),
   };
   expect(async () => await userService.updateUser(updatedUser)).rejects.toThrow(
     UserNotFoundException
@@ -83,7 +116,11 @@ test('Should delete a user', async () => {
 });
 
 test('Should throw error if user id is not found when deleting', async () => {
-  const userId = faker.datatype.number().toString();
+  const userId = faker.datatype
+    .number({
+      min: TEST_USER_SIZE,
+    })
+    .toString();
 
   expect(async () => await userService.deleteUser(userId)).rejects.toThrow(
     UserNotFoundException

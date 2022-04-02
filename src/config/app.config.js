@@ -16,7 +16,7 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import { corsOptions } from './cors.config.js';
 import { ENV, PORT } from './env.config.js';
-import { publicPath } from './paths.config.js';
+import { PUBLIC_PATH, PUBLIC_STORAGE_PATH } from './paths.config.js';
 
 // Instantiate express app
 const app = express();
@@ -46,8 +46,12 @@ app.use(express.urlencoded({ extended: false }));
 // Global middlewares
 app.use([rateLimitByIp, requestIdentifier, requestLogger, i18nextMiddleware]);
 
+if (ENV === 'test') {
+  app.use('/storage', express.static(PUBLIC_STORAGE_PATH));
+}
+
 // Serve static files
-app.use(express.static(publicPath));
+app.use(express.static(PUBLIC_PATH));
 
 // Set up routes
 app.use(router);

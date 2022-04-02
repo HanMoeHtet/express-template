@@ -1,31 +1,40 @@
 import path from 'path';
+import { ENV } from './env.config';
 
 /**
  * Path to project root
  */
-export const rootPath = path.join(__dirname, '../..');
+export const ROOT_PATH = path.join(__dirname, '../..');
 
 /**
  * Path to public directory
  */
-export const publicPath = path.join(rootPath, 'public');
+export const PUBLIC_PATH = path.join(ROOT_PATH, 'public');
 
 /**
  * Path to src directory
  */
-export const srcPath = path.join(rootPath, 'src');
+export const SRC_PATH = path.join(ROOT_PATH, 'src');
 
 /**
  * Path to storage directory
  */
-export const storagePath = path.join(rootPath, 'storage');
+export const STORAGE_PATH =
+  ENV !== 'test'
+    ? path.join(ROOT_PATH, 'storage')
+    : path.join(ROOT_PATH, 'test/app/storage');
+
+export const PUBLIC_STORAGE_PATH =
+  ENV !== 'test'
+    ? path.join(PUBLIC_PATH, 'storage')
+    : path.join(ROOT_PATH, 'test/app/public/storage');
 
 /**
  * Path to resources directory
  */
-export const resourcesPath = path.join(srcPath, 'resources');
+export const RESOURCES_PATH = path.join(SRC_PATH, 'resources');
 
 /**
  * Path to cli directory
  */
-export const cliPath = path.join(srcPath, 'cli');
+export const CLI_PATH = path.join(SRC_PATH, 'cli');

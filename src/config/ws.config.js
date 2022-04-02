@@ -45,7 +45,6 @@ export const closeWs = async () => {
   try {
     await pubClient.quit();
   } catch (e) {
-    console.log('hello');
     console.log(e);
   }
   await subClient.quit();

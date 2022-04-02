@@ -3,12 +3,12 @@ import {
   CliExecutionContext,
   executionContextStorage,
 } from '@src/config/execution-context.config';
-import { cliPath } from '@src/config/paths.config';
+import { CLI_PATH } from '@src/config/paths.config';
 import fs from 'fs';
 import path from 'path';
 
 const defaultRun = () => {
-  fs.readdirSync(cliPath, { withFileTypes: true }).forEach((dirent) => {
+  fs.readdirSync(CLI_PATH, { withFileTypes: true }).forEach((dirent) => {
     console.log(dirent.name);
   });
 };
@@ -23,7 +23,7 @@ const run = async () => {
         args: process.argv.slice(3),
       }),
       async () => {
-        await import(path.join(cliPath, target));
+        await import(path.join(CLI_PATH, target));
       }
     );
   }

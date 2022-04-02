@@ -1,5 +1,7 @@
 import { UserNotFoundException } from '@src/http/exceptions/user-not-found.exception';
 import { userRepository } from '@src/models/user/user.repository';
+import { getStoragePathFromRelativePublicPath } from '@src/utils/paths.util';
+import fs from 'fs';
 
 export const getAllUsers = async () => {
   return await userRepository.find({
@@ -28,6 +30,26 @@ export const createUser = async (
   const user = await userRepository.save(createUserDto);
 
   return user.id;
+};
+
+export const updateUserAvatar = async (
+  /** @type {import('@src/models/user/user.dto').UpdateUserAvatarDto} */ updateUserAvatarDto
+) => {
+  const user = await getUserById(updateUserAvatarDto.id);
+
+  if (user.avatarPath) {
+    const avatarPath = getStoragePathFromRelativePublicPath(user.avatarPath);
+
+    try {
+      fs.unlinkSync(avatarPath);
+    } catch (e) {
+      //
+    }
+  }
+
+  await userRepository.update(updateUserAvatarDto.id, {
+    avatarPath: updateUserAvatarDto.avatarPath,
+  });
 };
 
 export const updateUser = async (

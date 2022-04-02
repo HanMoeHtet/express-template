@@ -1,4 +1,6 @@
+import { UpdateUserAvatarDto } from '@src/models/user/user.dto';
 import * as userService from '@src/services/user.service';
+import { getRelativePublicPathFromStoragePath } from '@src/utils/paths.util';
 import { asyncHandler } from '../async-handler';
 import { HttpStatus } from '../http-status';
 
@@ -30,6 +32,32 @@ export const createUser = asyncHandler(async function createUser(req, res) {
   res.status(HttpStatus.CREATED).json({
     data: {
       userId,
+    },
+  });
+});
+
+export const updateUserAvatar = asyncHandler(async function updateUserAvatar(
+  req,
+  res
+) {
+  const userAvatarPhoto = req.file;
+
+  const userId = req.params.userId;
+
+  const avatarPath = userAvatarPhoto
+    ? getRelativePublicPathFromStoragePath(userAvatarPhoto.path)
+    : undefined;
+
+  await userService.updateUserAvatar(
+    new UpdateUserAvatarDto({
+      id: userId,
+      avatarPath,
+    })
+  );
+
+  res.status(HttpStatus.OK).json({
+    data: {
+      avatarPath,
     },
   });
 });

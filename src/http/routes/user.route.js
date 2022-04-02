@@ -7,6 +7,7 @@ import {
   updateUserRequestSchema,
 } from '@src/http/requests/user.request';
 import { Router } from 'express';
+import { uploadUserAvatar } from '../middlewares/upload-user-avatar.middleware';
 
 export const USER_BASE_URI = '/api/v1/users';
 
@@ -24,6 +25,12 @@ userRouter.post(
   '/',
   validateRequest(createUserRequestSchema),
   UserController.createUser
+);
+
+userRouter.put(
+  '/:userId(\\d+)/avatar',
+  uploadUserAvatar,
+  UserController.updateUserAvatar
 );
 
 userRouter.put(

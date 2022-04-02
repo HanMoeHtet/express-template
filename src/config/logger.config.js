@@ -3,7 +3,8 @@ import chalk from 'chalk';
 import { DateTime } from 'luxon';
 import path from 'path';
 import { createStream } from 'rotating-file-stream';
-import { storagePath } from './paths.config';
+import { ENV } from './env.config';
+import { STORAGE_PATH } from './paths.config';
 
 export const LOG_LEVELS = {
   CRITICAL: 'CRITICAL',
@@ -128,21 +129,23 @@ export class ConsoleLogger {
 
 export const consoleLogger = new ConsoleLogger();
 
-export const fileLogger = new FileLogger(
-  createStream(
-    (time, index) => {
-      if (typeof time === 'number' || time == null) {
-        time = new Date();
-      }
+export const fileLogger =
+  ENV !== 'test' &&
+  new FileLogger(
+    createStream(
+      (time, index) => {
+        if (typeof time === 'number' || time == null) {
+          time = new Date();
+        }
 
-      return `${DateTime.fromJSDate(time).toSQLDate()}${
-        index != null ? `-(${index})` : ''
-      }.log`;
-    },
-    {
-      size: '10M',
-      interval: '1d',
-      path: path.resolve(storagePath, 'logs'),
-    }
-  )
-);
+        return `${DateTime.fromJSDate(time).toSQLDate()}${
+          index != null ? `-(${index})` : ''
+        }.log`;
+      },
+      {
+        size: '10M',
+        interval: '1d',
+        path: path.resolve(STORAGE_PATH, 'logs'),
+      }
+    )
+  );

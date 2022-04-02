@@ -15,6 +15,23 @@ export class CreateUserDto {
   }
 }
 
+export class UpdateUserAvatarDto {
+  /**
+   * @type {string}
+   */
+  id;
+
+  /**
+   * @type {string | undefined}
+   */
+  avatarPath;
+
+  constructor(/** @type {UpdateUserAvatarDto} */ { id, avatarPath }) {
+    this.id = id;
+    this.avatarPath = avatarPath;
+  }
+}
+
 export class UpdateUserDto {
   /**
    * @type {string}
