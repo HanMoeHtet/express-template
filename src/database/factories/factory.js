@@ -1,5 +1,4 @@
 import { ExecutionContext } from '@src/config/execution-context.config';
-import { appDataSource } from '@src/config/database.config';
 
 export class Factory {
   static entityClass;
@@ -9,17 +8,19 @@ export class Factory {
   }
 
   static async create(size = 1) {
-    const entityManager =
-      ExecutionContext.getCurrent()?.getEntityManager() ||
-      appDataSource.manager;
+    const ctx = ExecutionContext.getCurrent();
 
-    if (!entityManager) {
+    if (!ctx) {
+      throw new Error('Current execution context is not set.');
+    }
+
+    if (!ctx.entityManager) {
       throw new Error(
-        `Entity manager for ${
-          ExecutionContext.getCurrent()?.constructor.name
-        } is not set.`
+        'Entity manager for current execution context is not set.'
       );
     }
+
+    const entityManager = ctx.entityManager;
 
     const repository = entityManager.getRepository(this.entityClass);
 

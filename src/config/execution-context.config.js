@@ -3,8 +3,19 @@ import { AsyncLocalStorage } from 'async_hooks';
 export const executionContextStorage = new AsyncLocalStorage();
 
 export class ExecutionContext {
-  constructor(data) {
-    this.data = data;
+  /**
+   * @type {import('typeorm').EntityManager | undefined}
+   */
+  _entityManager;
+
+  /**
+   * @type {import('i18next').TFunction | undefined}
+   */
+  _translator;
+
+  constructor({ entityManager, translator }) {
+    this.entityManager = entityManager;
+    this.translator = translator;
   }
 
   /**
@@ -14,85 +25,69 @@ export class ExecutionContext {
     return executionContextStorage.getStore();
   }
 
-  /**
-   * @returns {import('i18next').TFunction | undefined}
-   */
-  getTranslator() {
-    return;
+  get entityManager() {
+    return this._entityManager;
   }
 
-  /**
-   * @returns {import('typeorm').EntityManager | undefined}
-   */
-  getEntityManager() {
-    return;
+  set entityManager(entityManager) {
+    this._entityManager = entityManager;
+  }
+
+  get translator() {
+    return this._translator;
+  }
+
+  set translator(translator) {
+    this._translator = translator;
   }
 }
 
 export class HttpExecutionContext extends ExecutionContext {
   constructor(req, res, next, data = {}) {
-    super(data);
+    super({
+      translator: req.t,
+      entityManager: data.entityManager,
+    });
     this.req = req;
     this.res = res;
     this.next = next;
   }
 
-  /**
-   * @returns {HttpExecutionContext | undefined}
-   */
-  static getCurrent() {
-    return executionContextStorage.getStore();
-  }
-
-  getTranslator() {
+  get translator() {
     return this.req.t;
   }
 
-  getEntityManager() {
-    return this.data.entityManager;
+  set translator(translator) {
+    this.req && (this.req.t = translator);
   }
 }
 
 export class WsExecutionContext extends ExecutionContext {
   constructor(socket, next, data = {}) {
-    super(data);
+    super({
+      entityManager: data.entityManager,
+      translator: socket.data.t,
+    });
     this.socket = socket;
     this.next = next;
   }
 
-  /**
-   * @returns {WsExecutionContext | undefined}
-   */
-  static getCurrent() {
-    return executionContextStorage.getStore();
-  }
-
-  getTranslator() {
+  get translator() {
     return this.socket.data.t;
   }
 
-  getEntityManager() {
-    return this.data.entityManager;
+  set translator(translator) {
+    this.socket?.data && (this.socket.data.t = translator);
   }
 }
 
 export class CliExecutionContext extends ExecutionContext {
   constructor(data = {}) {
-    super(data);
-  }
+    super({
+      translator: data.t,
+      entityManager: data.entityManager,
+    });
 
-  /**
-   * @returns {CliExecutionContext | undefined}
-   */
-  static getCurrent() {
-    return executionContextStorage.getStore();
-  }
-
-  getTranslator() {
-    return this.data.t;
-  }
-
-  getEntityManager() {
-    return this.data.entityManager;
+    this.args = data.args;
   }
 }

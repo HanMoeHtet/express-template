@@ -53,7 +53,7 @@ if (ENV === 'development') {
 }
 
 export const t = (...params) => {
-  const t = ExecutionContext.getCurrent()?.getTranslator();
+  const t = ExecutionContext.getCurrent()?.translator;
 
   if (t) {
     // @ts-ignore

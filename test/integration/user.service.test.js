@@ -1,20 +1,41 @@
 import faker from '@faker-js/faker';
-import { closeDatabase, initDatabase } from '@src/config/database.config';
-import { initLang } from '@src/config/lang.config';
-import { UserFactory } from '@src/database/factories/user.factory';
+import {
+  appDataSource,
+  closeDatabase,
+  initDatabase,
+} from '@src/config/database.config';
+import {
+  CliExecutionContext,
+  executionContextStorage,
+} from '@src/config/execution-context.config';
+import { initLang, i18next } from '@src/config/lang.config';
 import { UserNotFoundException } from '@src/http/exceptions/user-not-found.exception';
-import * as userService from '@src/services/user.service';
+import { UserFactory } from '@src/database/factories/user.factory';
 
 /**
  * @type {any[]}
  */
 let users;
 
+/**
+ * @type {import('@src/services/user.service')}
+ */
+let userService;
+
 const TEST_USER_SIZE = 5;
 
 beforeAll(async () => {
   await initLang();
   await initDatabase();
+
+  executionContextStorage.enterWith(
+    new CliExecutionContext({
+      entityManager: appDataSource.manager,
+      translator: i18next.cloneInstance(),
+    })
+  );
+
+  userService = await import('@src/services/user.service');
 
   users = await UserFactory.create(TEST_USER_SIZE);
 });

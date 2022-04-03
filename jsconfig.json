@@ -20,7 +20,9 @@
     "noUncheckedIndexedAccess": true,
     "useUnknownInCatchVariables": true,
 
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ESNext"
   },
 
   "typeAcquisition": {

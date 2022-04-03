@@ -1,4 +1,5 @@
 import '@src/bootstrap';
+import { appDataSource } from '@src/config/database.config';
 import {
   CliExecutionContext,
   executionContextStorage,
@@ -6,6 +7,7 @@ import {
 import { CLI_PATH } from '@src/config/paths.config';
 import fs from 'fs';
 import path from 'path';
+import { i18next } from '@src/config/lang.config';
 
 const defaultRun = () => {
   fs.readdirSync(CLI_PATH, { withFileTypes: true }).forEach((dirent) => {
@@ -21,6 +23,8 @@ const run = async () => {
     executionContextStorage.run(
       new CliExecutionContext({
         args: process.argv.slice(3),
+        entityManager: appDataSource.manager,
+        translator: i18next.cloneInstance(),
       }),
       async () => {
         await import(path.join(CLI_PATH, target));

@@ -1,14 +1,22 @@
 import faker from '@faker-js/faker';
 import { app } from '@src/config/app.config';
-import { closeDatabase, initDatabase } from '@src/config/database.config';
-import { initLang } from '@src/config/lang.config';
+import {
+  appDataSource,
+  closeDatabase,
+  initDatabase,
+} from '@src/config/database.config';
+import {
+  CliExecutionContext,
+  executionContextStorage,
+} from '@src/config/execution-context.config';
+import { i18next, initLang } from '@src/config/lang.config';
 import { ROOT_PATH } from '@src/config/paths.config';
 import { UserFactory } from '@src/database/factories/user.factory';
 import { HttpStatus } from '@src/http/http-status';
 import { USER_BASE_URI } from '@src/http/routes/user.route';
+import fs from 'fs';
 import path from 'path';
 import supertest from 'supertest';
-import fs from 'fs';
 
 const request = supertest(app);
 
@@ -22,6 +30,13 @@ let users;
 beforeAll(async () => {
   await initLang();
   await initDatabase();
+
+  executionContextStorage.enterWith(
+    new CliExecutionContext({
+      entityManager: appDataSource.manager,
+      translator: i18next.cloneInstance(),
+    })
+  );
 
   users = await UserFactory.create(TEST_USER_SIZE);
 });
@@ -196,7 +211,10 @@ test('Delete unknown user id throw error', async () => {
 
 afterAll(async () => {
   try {
-    fs.rmdirSync(path.join(ROOT_PATH, 'test/app/storage/public/avatars'));
+    fs.rmSync(path.join(ROOT_PATH, 'test/app/storage/public/avatars'), {
+      recursive: true,
+      force: true,
+    });
   } catch (e) {
     console.log(e);
   }
