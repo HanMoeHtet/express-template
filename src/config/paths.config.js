@@ -34,6 +34,8 @@ export const PUBLIC_STORAGE_PATH =
  */
 export const RESOURCES_PATH = path.join(SRC_PATH, 'resources');
 
+export const VIEWS_PATH = path.join(RESOURCES_PATH, 'views');
+
 /**
  * Path to cli directory
  */

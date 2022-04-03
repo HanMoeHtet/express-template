@@ -16,10 +16,20 @@ import helmet from 'helmet';
 import { createServer } from 'http';
 import { corsOptions } from './cors.config.js';
 import { ENV, PORT } from './env.config.js';
-import { PUBLIC_PATH, PUBLIC_STORAGE_PATH } from './paths.config.js';
+import {
+  PUBLIC_PATH,
+  PUBLIC_STORAGE_PATH,
+  VIEWS_PATH,
+} from './paths.config.js';
+import { viewEngine } from './view.config.js';
 
 // Instantiate express app
 const app = express();
+
+app.engine('jsx', viewEngine);
+
+app.set('views', VIEWS_PATH);
+app.set('view engine', 'jsx');
 
 // Set execution context for each request
 app.use(initExecutionContext);

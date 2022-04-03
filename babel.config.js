@@ -5,6 +5,12 @@ module.exports = (api) => {
   const plugins = [
     '@babel/plugin-transform-runtime',
     [
+      '@babel/plugin-transform-react-jsx',
+      {
+        runtime: 'automatic',
+      },
+    ],
+    [
       'module-resolver',
       {
         root: ['./src'],

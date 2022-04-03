@@ -22,12 +22,13 @@
 
     "moduleResolution": "node",
     "module": "ESNext",
-    "target": "ESNext"
+    "target": "ESNext",
+    "jsx": "react-jsx"
   },
 
   "typeAcquisition": {
     "include": ["jest"]
   },
 
-  "include": ["./src/**/*.js", "./test/**/*.js"]
+  "include": ["./src/**/*", "./test/**/*"]
 }

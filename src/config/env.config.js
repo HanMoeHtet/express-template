@@ -40,3 +40,7 @@ export const DATABASE_PASSWORD = getValueFromEnvOrFail('DATABASE_PASSWORD');
 export const DATABASE_NAME = getValueFromEnvOrFail('DATABASE_NAME');
 
 export const REDIS_URL = getValueFromEnvOrFail('REDIS_URL');
+
+export const EMAIL_ADDRESS = getValueFromEnvOrFail('EMAIL_ADDRESS');
+
+export const EMAIL_PASSWORD = getValueFromEnvOrFail('EMAIL_PASSWORD');
